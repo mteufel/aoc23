@@ -24,7 +24,7 @@ var digitMap = map[string]string{
 func Task11() {
 	fmt.Println("\nDay 1, Part 1: Trebuchet?!")
 	fmt.Println("===============================================")
-	//lines := util.ReadFile("/day1/sample.txt")
+	//lines := util.ReadFile("/day1/sample.txt.txt")
 	lines := util.ReadFile("/day1/input.txt")
 	total := 0
 	value := 0
