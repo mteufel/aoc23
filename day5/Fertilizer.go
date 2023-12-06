@@ -22,13 +22,34 @@ type Map struct {
 	Combinations []Combination
 }
 
-func (f *Fertilizer) GetMapByName(name string) Map {
-	for _, m := range f.Maps {
-		if m.Name == name {
-			return m
-		}
+func (f *Fertilizer) CalculateSeedsForRange(start int, size int) []int {
+	seeds := make([]int, 0)
+	for i := 0; i < size; i++ {
+		seeds = append(seeds, start+i)
 	}
-	return Map{}
+	return seeds
+}
+
+func (f *Fertilizer) GetMapByName(name string) Map {
+	/*
+		for _, m := range f.Maps {
+			if m.Name == name {
+				return m
+			}
+		}
+		return Map{}
+	*/
+	idx := map[string]int{
+		"soil":        0,
+		"fertilizer":  1,
+		"water":       2,
+		"ligth":       3,
+		"temperature": 4,
+		"humidity":    5,
+		"locaation":   6,
+	}
+	return f.Maps[idx[name]]
+
 }
 
 func (f *Fertilizer) GetLocationBySeed(seed int) int {
@@ -66,20 +87,6 @@ func (m *Map) GetValue(seed int) int {
 	return result
 
 }
-
-/*
-func (m *Map) GetCorrespondings() map[int]int {
-	correspondings := make(map[int]int)
-	for _, combination := range m.Combinations {
-		dest := combination.Destination
-		for i := 0; i <= combination.Range-1; i++ {
-			correspondings[dest+i] = combination.Source + i
-		}
-	}
-	return correspondings
-}
-
-*/
 
 func Load(file string) Fertilizer {
 	lines := util.ReadFile("/day5/" + file)
@@ -135,15 +142,4 @@ func makeStringToIntArray(s string) []int {
 		intArray = append(intArray, i)
 	}
 	return intArray
-}
-
-func MergeMaps(m1 map[int]int, m2 map[int]int) map[int]int {
-	merged := make(map[int]int)
-	for k, v := range m1 {
-		merged[k] = v
-	}
-	for key, value := range m2 {
-		merged[key] = value
-	}
-	return merged
 }
