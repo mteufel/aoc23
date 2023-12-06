@@ -6,6 +6,16 @@ import (
 	"strings"
 )
 
+var Idx = map[string]int{
+	"soil":        0,
+	"fertilizer":  1,
+	"water":       2,
+	"light":       3,
+	"temperature": 4,
+	"humidity":    5,
+	"location":    6,
+}
+
 type Fertilizer struct {
 	Maps  []Map
 	Seeds []int
@@ -31,25 +41,7 @@ func (f *Fertilizer) CalculateSeedsForRange(start int, size int) []int {
 }
 
 func (f *Fertilizer) GetMapByName(name string) Map {
-	/*
-		for _, m := range f.Maps {
-			if m.Name == name {
-				return m
-			}
-		}
-		return Map{}
-	*/
-	idx := map[string]int{
-		"soil":        0,
-		"fertilizer":  1,
-		"water":       2,
-		"ligth":       3,
-		"temperature": 4,
-		"humidity":    5,
-		"locaation":   6,
-	}
-	return f.Maps[idx[name]]
-
+	return f.Maps[Idx[name]]
 }
 
 func (f *Fertilizer) GetLocationBySeed(seed int) int {
