@@ -3,7 +3,6 @@ package day5
 import (
 	"fmt"
 	"sort"
-	"sync"
 )
 
 func Task51() {
@@ -28,9 +27,7 @@ func Task52() {
 	fmt.Println("\nDay 5, Part 2: If You Give A Seed A Fertilizer")
 	fmt.Println("=====================================================")
 
-	var wg sync.WaitGroup
-
-	//fertilizer := Load("sample.txt")
+	// fertilizer := Load("sample.txt")
 	fertilizer := Load("input.txt")
 
 	locs := make([]int, 0)
@@ -39,24 +36,11 @@ func Task52() {
 		fmt.Println("--> New range: start,range ", fertilizer.Seeds[i], fertilizer.Seeds[i+1])
 		seedRange := fertilizer.CalculateSeedsForRange(fertilizer.Seeds[i], fertilizer.Seeds[i+1])
 
-		ch := make(chan int)
-
 		for _, seed := range seedRange {
-			wg.Add(1)
-			go func(fertilizer Fertilizer, seed int, ch chan<- int) {
-				defer wg.Done()
-				ch <- fertilizer.GetLocationBySeed(seed)
-			}(fertilizer, seed, ch)
+			loc := fertilizer.GetLocationBySeed(seed - 1)
+			locs = append(locs, loc)
 		}
 
-		go func() {
-			wg.Wait()
-			close(ch)
-		}()
-
-		for i := range ch {
-			locs = append(locs, i)
-		}
 	}
 
 	sort.Ints(locs)

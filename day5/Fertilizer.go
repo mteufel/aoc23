@@ -66,16 +66,14 @@ func (f *Fertilizer) GetLocationBySeed(seed int) int {
 func (m *Map) GetValue(seed int) int {
 
 	result := seed
-
 	for _, combination := range m.Combinations {
-		dest := combination.Destination
-		for i := 0; i <= combination.Range-1; i++ {
-			if dest == seed {
-				return combination.Source + i
-			}
-			dest = dest + 1
+		if seed >= combination.Destination && seed <= combination.Destination+combination.Range {
+			return seed + (combination.Source - combination.Destination)
+		} else {
+			result = seed
 		}
 	}
+
 	return result
 
 }
