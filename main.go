@@ -1,6 +1,6 @@
 package main
 
-import "aoc23/day5"
+import "aoc23/day6"
 
 func main() {
 	//day1.Task11()
@@ -12,5 +12,6 @@ func main() {
 	//day4.Task41()
 	//day4.Task42()
 	//day5.Task51()
-	day5.Task52()
+	//day5.Task52()
+	day6.Task61()
 }
