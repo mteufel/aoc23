@@ -37,13 +37,17 @@ func parseLine(line string) []int {
 	return onlyDigits
 }
 
-func AnalyzeRace(race int, distance int) []int {
+func AnalyzeRace(race int, distance int) ([]int, int) {
 	options := make([]int, 0)
+	int := 0
 	for i := 1; i <= race; i++ {
 		millimeters := (race - i) * i
 		if millimeters > 0 {
+			if millimeters > distance {
+				int++
+			}
 			options = append(options, millimeters)
 		}
 	}
-	return options
+	return options, int
 }
